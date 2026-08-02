@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INUKA by Ratie — Always With You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black-2:#141210;
+    --gold:#c9a24b;
+    --gold-light:#e8cf8f;
+    --cream:#f4efe4;
+    --teal:#1fae94;
+    --magenta:#d43d7c;
+    --violet:#6a4fb0;
+    --line: rgba(201,162,75,0.25);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Manrope', sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* splash motif */
+  .splash-dot{position:absolute; border-radius:50%; filter:blur(40px); opacity:0.35; pointer-events:none;}
+
+  /* ---------- PROMO BAR ---------- */
+  .promo-bar{
+    background:linear-gradient(90deg, var(--teal), var(--violet));
+    color:#0a0a0a; font-weight:700; font-size:0.8rem;
+    display:flex; justify-content:center; align-items:center; gap:14px;
+    padding:9px 16px; flex-wrap:wrap; position:sticky; top:0; z-index:61;
+  }
+  .promo-bar .countdown{
+    background:rgba(10,10,10,0.18); padding:3px 10px; border-radius:8px; font-variant-numeric:tabular-nums;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:60;
+    background:rgba(10,10,10,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto;}
+  .logo{display:flex; flex-direction:column; line-height:1;}
+  .logo .word{font-family:'Cormorant Garamond',serif; font-size:1.6rem; letter-spacing:0.14em; color:var(--gold-light); font-weight:600;}
+  .logo .sub{font-size:0.62rem; letter-spacing:0.28em; color:var(--cream); opacity:0.65; margin-top:2px;}
+  nav.links{display:flex; gap:28px; align-items:center;}
+  nav.links a{font-size:0.85rem; letter-spacing:0.04em; color:var(--cream); opacity:0.85; transition:opacity .2s, color .2s;}
+  nav.links a:hover{opacity:1; color:var(--gold-light);}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  .cart-btn{
+    position:relative; background:none; border:1px solid var(--line); color:var(--cream);
+    padding:9px 16px; border-radius:30px; font-family:'Manrope'; font-size:0.82rem; cursor:pointer;
+    display:flex; align-items:center; gap:8px; transition:border-color .2s, background .2s;
+  }
+  .cart-btn:hover{border-color:var(--gold); background:rgba(201,162,75,0.08);}
+  .cart-count{
+    background:var(--magenta); color:#fff; font-size:0.68rem; border-radius:50%;
+    width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+  }
+  .burger{display:none; background:none; border:none; color:var(--cream); font-size:1.4rem; cursor:pointer;}
+  @media (max-width:860px){
+    nav.links{position:fixed; top:64px; left:0; right:0; background:var(--black-2); flex-direction:column;
+      padding:20px 28px; gap:16px; transform:translateY(-130%); transition:transform .3s ease; border-bottom:1px solid var(--line);}
+    nav.links.open{transform:translateY(0);}
+    .burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:92vh; display:flex; align-items:center;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(31,174,148,0.18), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 15% 80%, rgba(212,61,124,0.16), transparent 60%),
+      linear-gradient(180deg,#0a0a0a 0%, #0c0b09 100%);
+    overflow:hidden;
+    padding:80px 0 60px;
+  }
+  .hero .splash-dot.d1{width:420px; height:420px; background:var(--teal); top:-120px; right:-100px;}
+  .hero .splash-dot.d2{width:340px; height:340px; background:var(--magenta); bottom:-140px; left:-80px;}
+  .hero .splash-dot.d3{width:260px; height:260px; background:var(--violet); top:40%; right:20%;}
+  .hero-inner{position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+  @media (max-width:900px){.hero-inner{grid-template-columns:1fr; text-align:center;}}
+  .eyebrow{
+    display:inline-block; font-size:0.72rem; letter-spacing:0.32em; text-transform:uppercase;
+    color:var(--gold-light); border:1px solid var(--line); padding:7px 16px; border-radius:30px; margin-bottom:26px;
+  }
+  .hero h1{font-size:clamp(2.6rem, 6vw, 4.6rem); line-height:1.03; color:var(--cream);}
+  .hero h1 em{font-style:italic; color:var(--gold-light); font-weight:500;}
+  .hero p.lede{margin-top:22px; font-size:1.08rem; color:rgba(244,239,228,0.72); max-width:480px;}
+  @media (max-width:900px){.hero p.lede{margin-inline:auto;}}
+  .hero-ctas{margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;}
+  @media (max-width:900px){.hero-ctas{justify-content:center;}}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:14px 28px; border-radius:40px;
+    font-size:0.88rem; font-weight:700; letter-spacing:0.03em; cursor:pointer; border:1px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-gold{background:linear-gradient(135deg, var(--gold-light), var(--gold)); color:#141210;}
+  .btn-gold:hover{box-shadow:0 10px 30px rgba(201,162,75,0.3);}
+  .btn-ghost{border-color:var(--line); color:var(--cream); background:transparent;}
+  .btn-ghost:hover{border-color:var(--teal); background:rgba(31,174,148,0.08);}
+  .hero-stats{display:flex; gap:36px; margin-top:48px; flex-wrap:wrap;}
+  @media (max-width:900px){.hero-stats{justify-content:center;}}
+  .stat b{display:block; font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--gold-light);}
+  .stat span{font-size:0.72rem; letter-spacing:0.08em; opacity:0.6; text-transform:uppercase;}
+  .hero-art{position:relative;}
+  .hero-art img{border-radius:14px; box-shadow:0 40px 80px rgba(0,0,0,0.55);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:96px 0;}
+  .section-head{margin-bottom:54px; max-width:640px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(2rem, 4vw, 2.9rem); color:var(--cream);}
+  .section-head h2 em{color:var(--teal); font-style:italic;}
+  .section-head p{color:rgba(244,239,228,0.65); margin-top:14px; font-size:1rem;}
+
+  /* ---------- RANGE TABS ---------- */
+  .range-tabs{display:flex; gap:10px; margin-bottom:44px; flex-wrap:wrap;}
+  .range-tab{
+    padding:10px 22px; border-radius:30px; border:1px solid var(--line); background:transparent; color:var(--cream);
+    font-family:'Manrope'; font-size:0.85rem; cursor:pointer; transition:all .2s ease; opacity:0.75;
+  }
+  .range-tab.active{background:var(--gold); color:#141210; border-color:var(--gold); opacity:1; font-weight:700;}
+  .range-tab:hover{opacity:1;}
+
+  .product-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:24px;}
+  .range-panel{display:none;}
+  .range-panel.active{display:block;}
+
+  .card{
+    background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:22px;
+    display:flex; flex-direction:column; gap:14px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    position:relative; overflow:hidden;
+  }
+  .card:hover{transform:translateY(-6px); border-color:var(--gold); box-shadow:0 20px 40px rgba(0,0,0,0.4);}
+  .card .tag{
+    align-self:flex-start; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase;
+    padding:5px 11px; border-radius:20px; background:rgba(31,174,148,0.15); color:var(--teal);
+  }
+  .card.masc .tag{background:rgba(106,79,176,0.18); color:#b6a2ec;}
+  .card.gift .tag{background:rgba(212,61,124,0.16); color:#ec8bb2;}
+  .card h3{font-size:1.35rem; color:var(--cream); font-weight:600;}
+  .card .desc{font-size:0.85rem; color:rgba(244,239,228,0.6); flex-grow:1;}
+  .card .row{display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:6px; border-top:1px solid var(--line);}
+  .card .price{font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--gold-light); font-weight:600;}
+  .add-btn{
+    background:none; border:1px solid var(--gold); color:var(--gold-light); width:38px; height:38px; border-radius:50%;
+    font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s ease;
+  }
+  .add-btn:hover{background:var(--gold); color:#141210;}
+  .card-note{font-size:0.72rem; color:rgba(244,239,228,0.45); margin-top:-6px;}
+
+  /* ---------- SIGNATURE / GIFT band ---------- */
+  .band{
+    background:linear-gradient(135deg,#14100a, #1c1610);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .band .grid2{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  @media (max-width:860px){.band .grid2{grid-template-columns:1fr;}}
+  .perks{display:flex; gap:26px; margin-top:30px; flex-wrap:wrap;}
+  .perk{display:flex; flex-direction:column; align-items:flex-start; gap:8px; max-width:150px;}
+  .perk .ic{font-size:1.5rem;}
+  .perk span{font-size:0.78rem; color:rgba(244,239,228,0.65);}
+
+  /* ---------- WHY / TRUST STRIP ---------- */
+  .trust-strip{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  @media (max-width:760px){.trust-strip{grid-template-columns:repeat(2,1fr);}}
+  .trust-item{padding:36px 20px; text-align:center; border-right:1px solid var(--line);}
+  .trust-item:last-child{border-right:none;}
+  .trust-item b{display:block; font-family:'Cormorant Garamond',serif; font-size:1.7rem; color:var(--gold-light);}
+  .trust-item span{font-size:0.72rem; letter-spacing:0.05em; opacity:0.6; text-transform:uppercase;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:860px){.testi-grid{grid-template-columns:1fr;}}
+  .testi{background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:26px;}
+  .testi .stars{color:var(--gold); letter-spacing:2px; margin-bottom:12px;}
+  .testi p{font-size:0.92rem; color:rgba(244,239,228,0.78); font-style:italic;}
+  .testi .who{margin-top:16px; font-size:0.8rem; color:var(--teal);}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; color:var(--cream); padding:22px 0;
+    font-family:'Cormorant Garamond',serif; font-size:1.2rem; cursor:pointer; display:flex; justify-content:space-between;
+    align-items:center; gap:20px;
+  }
+  .faq-q .plus{color:var(--gold); font-size:1.4rem; transition:transform .25s ease; font-family:'Manrope';}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding-bottom:20px; color:rgba(244,239,228,0.65); font-size:0.92rem; max-width:640px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  @media (max-width:860px){.contact-grid{grid-template-columns:1fr;}}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:0.75rem; letter-spacing:0.06em; text-transform:uppercase; opacity:0.6; margin-bottom:8px;}
+  .field input, .field select, .field textarea{
+    width:100%; background:var(--black-2); border:1px solid var(--line); border-radius:10px; padding:13px 16px;
+    color:var(--cream); font-family:'Manrope'; font-size:0.92rem;
+  }
+  .field textarea{resize:vertical; min-height:90px;}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .wa-panel{
+    background:linear-gradient(135deg, rgba(31,174,148,0.1), rgba(10,10,10,0));
+    border:1px solid var(--line); border-radius:18px; padding:32px; display:flex; flex-direction:column; gap:20px; justify-content:center;
+  }
+  .wa-big{display:flex; align-items:center; gap:16px;}
+  .wa-icon{width:52px; height:52px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;}
+  .wa-big b{font-size:1.15rem; display:block;}
+  .wa-big span{font-size:0.82rem; opacity:0.6;}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:50px 0 30px;}
+  .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; padding-bottom:30px;}
+  .footer-tags{display:flex; gap:22px; flex-wrap:wrap; font-size:0.8rem; opacity:0.65;}
+  .footer-bottom{border-top:1px solid var(--line); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:0.78rem; opacity:0.5;}
+
+  /* ---------- CART DRAWER ---------- */
+  .overlay{position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; opacity:0; pointer-events:none; transition:opacity .25s ease;}
+  .overlay.open{opacity:1; pointer-events:auto;}
+  .drawer{
+    position:fixed; top:0; right:0; height:100%; width:380px; max-width:92vw; background:var(--black-2);
+    border-left:1px solid var(--line); z-index:100; transform:translateX(100%); transition:transform .3s ease;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{padding:22px 24px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;}
+  .drawer-head h3{font-size:1.3rem;}
+  .drawer-close{background:none; border:none; color:var(--cream); font-size:1.3rem; cursor:pointer;}
+  .drawer-items{flex-grow:1; overflow-y:auto; padding:20px 24px;}
+  .drawer-item{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 0; border-bottom:1px solid var(--line);}
+  .drawer-item .di-name{font-size:0.9rem;}
+  .drawer-item .di-price{font-size:0.8rem; opacity:0.6;}
+  .qty-ctrl{display:flex; align-items:center; gap:10px;}
+  .qty-ctrl button{width:26px; height:26px; border-radius:50%; border:1px solid var(--line); background:none; color:var(--cream); cursor:pointer;}
+  .empty-cart{opacity:0.5; font-size:0.9rem; text-align:center; margin-top:40px;}
+  .drawer-foot{padding:22px 24px; border-top:1px solid var(--line);}
+  .drawer-total{display:flex; justify-content:space-between; margin-bottom:16px; font-family:'Cormorant Garamond',serif; font-size:1.3rem;}
+  .checkout-btn{
+    width:100%; background:#25D366; color:#fff; border:none; padding:15px; border-radius:12px; font-weight:700;
+    font-family:'Manrope'; font-size:0.92rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .checkout-btn:hover{opacity:0.9;}
+
+  /* WhatsApp floating button */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:80; width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);} 70%{box-shadow:0 0 0 14px rgba(37,211,102,0);} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- CHAT WIDGET ---------- */
+  .chat-float{
+    position:fixed; bottom:96px; right:26px; z-index:80; width:58px; height:58px; border-radius:50%;
+    background:var(--gold); display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+    border:none; cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .chat-panel{
+    position:fixed; bottom:164px; right:26px; z-index:85; width:320px; max-width:90vw; max-height:440px;
+    background:var(--black-2); border:1px solid var(--line); border-radius:16px; display:flex; flex-direction:column;
+    overflow:hidden; transform:translateY(20px) scale(0.97); opacity:0; pointer-events:none; transition:all .25s ease;
+  }
+  .chat-panel.open{transform:translateY(0) scale(1); opacity:1; pointer-events:auto;}
+  .chat-head{background:linear-gradient(135deg, var(--gold-light), var(--gold)); color:#141210; padding:16px 18px;}
+  .chat-head b{display:block; font-size:0.95rem;}
+  .chat-head span{font-size:0.72rem; opacity:0.8;}
+  .chat-close{position:absolute; top:14px; right:16px; background:none; border:none; color:#141210; font-size:1.1rem; cursor:pointer;}
+  .chat-body{flex-grow:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px;}
+  .chat-bubble{background:rgba(201,162,75,0.1); border:1px solid var(--line); border-radius:12px; padding:10px 13px; font-size:0.84rem; max-width:88%;}
+  .chat-quick{display:flex; flex-wrap:wrap; gap:8px; padding:0 16px 14px;}
+  .chat-quick button{
+    background:none; border:1px solid var(--line); color:var(--gold-light); border-radius:20px; padding:6px 12px;
+    font-size:0.76rem; cursor:pointer;
+  }
+  .chat-quick button:hover{background:rgba(201,162,75,0.1);}
+
+  /* ---------- ADMIN PANEL ---------- */
+  .admin-gear{
+    position:fixed; bottom:26px; left:26px; z-index:80; width:44px; height:44px; border-radius:50%;
+    background:var(--black-2); border:1px solid var(--line); color:var(--cream); font-size:1.1rem;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:95; display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:28px; width:420px; max-width:100%;
+    max-height:82vh; overflow-y:auto; position:relative;
+  }
+  .modal-close{position:absolute; top:16px; right:18px; background:none; border:none; color:var(--cream); font-size:1.2rem; cursor:pointer;}
+  .admin-row{display:flex; gap:8px; align-items:center; border-bottom:1px solid var(--line); padding:10px 0; font-size:0.85rem;}
+  .admin-row input{background:var(--black); border:1px solid var(--line); border-radius:6px; color:var(--cream); padding:6px 8px; font-size:0.8rem;}
+  .admin-row input.p-name{flex:1;}
+  .admin-row input.p-price{width:70px;}
+</style>
+</head>
+<body>
+
+<div class="promo-bar" id="promoBar">
+  <span>✨ Launch Special — 10% off your first order</span>
+  <span class="countdown" id="countdown">00d 00h 00m 00s</span>
+</div>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <span class="word">INUKA<span style="font-size:0.9rem;vertical-align:top;">®</span></span>
+      <span class="sub">by Ratie — Always With You</span>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#modern-me">Modern Me</a>
+      <a href="#exclusive">Exclusive</a>
+      <a href="#signature">Signature</a>
+      <a href="#more">Beauty &amp; Care</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Order</a>
+      <a href="javascript:void(0)" id="myOrdersLink">My Orders</a>
+      <a href="tracker.html">🔒 Order Tracker</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartOpenBtn">🛍 Cart <span class="cart-count" id="cartCount">0</span></button>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="splash-dot d1"></div>
+  <div class="splash-dot d2"></div>
+  <div class="splash-dot d3"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">Youth · Vibrancy · Cheerfulness</span>
+      <h1>Feel <em>modern.</em><br>Wear it <em>always.</em></h1>
+      <p class="lede">Perfumed products, bath essentials and signature fragrances made for the everyday Zimbabwean who doesn't just wear scent — they define it. Every bottle authentic, every order handled personally by Ratie.</p>
+      <div class="hero-ctas">
+        <a href="#modern-me" class="btn btn-gold">Shop the ranges</a>
+        <a href="https://wa.me/263776183599" target="_blank" class="btn btn-ghost">💬 Chat on WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>3</b><span>Signature ranges</span></div>
+        <div class="stat"><b>100%</b><span>Authentic products</span></div>
+        <div class="stat"><b>4.9★</b><span>Customer rating</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="https://tadiwa245.github.io/Shawty-T/assets/IMG-20260714-WA0011.jpg" alt="" style="display:none;">
+      <div style="background:linear-gradient(160deg,#1c1610,#0a0a0a); border:1px solid var(--line); border-radius:18px; padding:40px; text-align:center;">
+        <p class="display" style="font-size:1.6rem; color:var(--gold-light); margin-bottom:10px;">"Sophistication. Confidence. You."</p>
+        <p style="font-size:0.85rem; opacity:0.6;">From the Modern Me mist to the Exclusive Range roll-on, every finish is made for how you actually move through your day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip wrap" style="max-width:100%; padding:0;">
+  <div class="trust-item"><b>Modern Me</b><span>From $4</span></div>
+  <div class="trust-item"><b>Exclusive Range</b><span>From $6</span></div>
+  <div class="trust-item"><b>Signature Range</b><span>$35 · 50ml</span></div>
+  <div class="trust-item"><b>Delivery</b><span>Harare &amp; beyond</span></div>
+</div>
+
+<!-- MODERN ME -->
+<section id="modern-me">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Everyday essentials</span>
+      <h2>Modern Me <em>Range</em></h2>
+      <p>Our signature perfumed products with a modern twist — perfume mist, body lotion, bath salt and hair &amp; body mist, made to layer.</p>
+    </div>
+    <div class="product-grid">
+
+      <div class="card">
+        <span class="tag">Perfume · 35ml</span>
+        <h3>Modern Me Perfume</h3>
+        <p class="desc">A lasting signature scent sized to carry everywhere.</p>
+        <div class="row"><span class="price">$15</span><button class="add-btn" data-name="Modern Me Perfume (35ml)" data-price="15">+</button></div>
+      </div>
+
+      <div class="card">
+        <span class="tag">Lotion · 50ml</span>
+        <h3>Modern Me Lotion</h3>
+        <p class="desc">Lightweight, perfumed body lotion for daily softness.</p>
+        <div class="row"><span class="price">$4</span><button class="add-btn" data-name="Modern Me Lotion (50ml)" data-price="4">+</button></div>
+      </div>
+
+      <div class="card">
+        <span class="tag">Bath salt · 220g</span>
+        <h3>Modern Me Bath Salt</h3>
+        <p class="desc">Mineral-rich soak to unwind and reset, tub-ready.</p>
+        <div class="row"><span class="price">$5</span><button class="add-btn" data-name="Modern Me Bath Salt (220g)" data-price="5">+</button></div>
+      </div>
+
+      <div class="card">
+        <span class="tag">Mist · 100ml</span>
+        <h3>Modern Me Hair &amp; Body Mist</h3>
+        <p class="desc">A quick spritz for hair and skin, all day freshness.</p>
+        <div class="row"><span class="price">$8</span><button class="add-btn" data-name="Modern Me Hair & Body Mist (100ml)" data-price="8">+</button></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXCLUSIVE RANGE -->
+<section id="exclusive" style="background:var(--black-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Sophistication. Confidence. You.</span>
+      <h2>Exclusive <em>Range</em></h2>
+      <p>Feminine, masculine and gender-neutral fragrances, plus lotion, body wash, roll-on and after shave balm.</p>
+    </div>
+
+    <div class="range-tabs" id="rangeTabs">
+      <button class="range-tab active" data-panel="fem">Feminine</button>
+      <button class="range-tab" data-panel="masc">Masculine</button>
+      <button class="range-tab" data-panel="neutral">Gender Neutral</button>
+      <button class="range-tab" data-panel="care">Care &amp; Body</button>
+    </div>
+
+    <div class="range-panel active" id="panel-fem">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Feminine</span><h3>Creed Aventus for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Creed Aventus for HER (30ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Feminine</span><h3>Empire for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Empire for HER (30ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Feminine</span><h3>Gold for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Gold for HER (30ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Feminine</span><h3>Imagine for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Imagine for HER (30ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Feminine</span><h3>Ka Nako for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Ka Nako for HER (30ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Feminine</span><h3>SuperHero for HER</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="SuperHero for HER (30ml)" data-price="20">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-masc">
+      <div class="product-grid">
+        <div class="card masc"><span class="tag">Masculine</span><h3>Creed Aventus for HIM</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Creed Aventus for HIM (30ml)" data-price="20">+</button></div></div>
+        <div class="card masc"><span class="tag">Masculine</span><h3>Empire for HIM</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Empire for HIM (30ml)" data-price="20">+</button></div></div>
+        <div class="card masc"><span class="tag">Masculine</span><h3>Gold for HIM</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Gold for HIM (30ml)" data-price="20">+</button></div></div>
+        <div class="card masc"><span class="tag">Masculine</span><h3>SuperHero for HIM</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="SuperHero for HIM (30ml)" data-price="20">+</button></div></div>
+        <div class="card masc"><span class="tag">Masculine · After Shave</span><h3>After Shave Balm</h3><p class="desc">Exclusive Range masculine only, 100ml.</p><div class="row"><span class="price">$10</span><button class="add-btn" data-name="Exclusive Range After Shave Balm (100ml)" data-price="10">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-neutral">
+      <div class="product-grid">
+        <div class="card gift"><span class="tag">Gender Neutral</span><h3>Ka Nako</h3><p class="desc">Exclusive Range fragrance, 30ml.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Ka Nako (30ml)" data-price="20">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-care">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Care · 100ml</span><h3>Exclusive Range Lotion</h3><p class="desc">Rich lotion to pair with your fragrance.</p><div class="row"><span class="price">$8</span><button class="add-btn" data-name="Exclusive Range Lotion (100ml)" data-price="8">+</button></div></div>
+        <div class="card"><span class="tag">Care · 100ml</span><h3>Exclusive Range Body Wash</h3><p class="desc">Scented daily wash for the full routine.</p><div class="row"><span class="price">$6</span><button class="add-btn" data-name="Exclusive Range Body Wash (100ml)" data-price="6">+</button></div></div>
+        <div class="card"><span class="tag">Care · 50ml</span><h3>Exclusive Range Roll-On</h3><p class="desc">On-the-go scent, easy reapplication.</p><div class="row"><span class="price">$8</span><button class="add-btn" data-name="Exclusive Range Roll-On (50ml)" data-price="8">+</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE RANGE -->
+<section id="signature" class="band">
+  <div class="wrap grid2">
+    <div>
+      <span class="eyebrow">Elevate your scent</span>
+      <h2 style="font-size:clamp(2rem,4vw,2.9rem);">Signature <em style="color:var(--gold-light); font-style:italic;">Range</em></h2>
+      <p style="color:rgba(244,239,228,0.68); margin-top:16px; max-width:480px;">Bold luxury 50ml perfumes that embody style, presence and prestige — crafted for those who don't just wear scent, they define it.</p>
+      <div class="perks">
+        <div class="perk"><span class="ic">🎁</span><span>Elegantly boxed</span></div>
+        <div class="perk"><span class="ic">💎</span><span>Perfect for gifting</span></div>
+        <div class="perk"><span class="ic">🌿</span><span>Premium quality</span></div>
+      </div>
+      <a href="https://wa.me/263776183599?text=Hi%20Inuka%20by%20Ratie%2C%20I'd%20like%20to%20order%20the%20Signature%20Range%20Perfume%20%2450ml." target="_blank" class="btn btn-gold" style="margin-top:30px;">Order Signature Perfume — $35</a>
+    </div>
+    <div class="product-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <span class="tag">Feminine</span>
+        <h3>Signature — HER</h3>
+        <p class="desc">Eternal Bliss · Imperial Grace · Pure Obsession <em>(new)</em></p>
+        <div class="row"><span class="price">$35</span><button class="add-btn" data-name="Signature Range Perfume for HER (50ml)" data-price="35">+</button></div>
+      </div>
+      <div class="card masc">
+        <span class="tag">Masculine</span>
+        <h3>Signature — HIM</h3>
+        <p class="desc">Majestic Dawn · Rising King <em>(new)</em> · Royal Legacy</p>
+        <div class="row"><span class="price">$35</span><button class="add-btn" data-name="Signature Range Perfume for HIM (50ml)" data-price="35">+</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAUTY & CARE -->
+<section id="more" style="background:var(--black-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Beyond fragrance</span>
+      <h2>Beauty <em>&amp; Care</em></h2>
+      <p>Nail and lip essentials, suncare, makeup, and the Sleep Well collection — the rest of the INUKA range.</p>
+    </div>
+
+    <div class="range-tabs" id="moreTabs">
+      <button class="range-tab active" data-panel="nails">Nails &amp; Lips</button>
+      <button class="range-tab" data-panel="sun">Suncare &amp; Hands</button>
+      <button class="range-tab" data-panel="makeup">Makeup</button>
+      <button class="range-tab" data-panel="sleep">Sleep Well &amp; Body</button>
+    </div>
+
+    <div class="range-panel active" id="panel-nails">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Lips · 12g</span><h3>Lip Scrub</h3><p class="desc">Sugar-based exfoliator in 5 flavours to buff away dry, flaky lips.</p><div class="row"><span class="price">$6</span><button class="add-btn" data-name="Lip Scrub (12g)" data-price="6">+</button></div></div>
+        <div class="card"><span class="tag">Lips · 5.5g</span><h3>Lip Balm</h3><p class="desc">Shea butter balm to soften and nourish, 5 flavours.</p><div class="row"><span class="price">$5</span><button class="add-btn" data-name="Lip Balm (5.5g)" data-price="5">+</button></div></div>
+        <div class="card"><span class="tag">Nails · 11ml</span><h3>Nail &amp; Cuticle Conditioner</h3><p class="desc">Softens cuticles, strengthens brittle nails, with almond and vitamin E.</p><div class="row"><span class="price">$6</span><button class="add-btn" data-name="Nail & Cuticle Conditioner (11ml)" data-price="6">+</button></div></div>
+        <div class="card"><span class="tag">Nails · 11ml</span><h3>Colour Stay Nail Polish</h3><p class="desc">Gel-effect finish, no UV lamp needed, long-wear protective layer.</p><div class="row"><span class="price">$6</span><button class="add-btn" data-name="Colour Stay Nail Polish (11ml)" data-price="6">+</button></div></div>
+        <div class="card"><span class="tag">Nails · 11ml</span><h3>Top Coat — Shining / Matte / Pluming</h3><p class="desc">One colour, three looks: natural light gel, matte finish or plumping shine.</p><div class="row"><span class="price">$6</span><button class="add-btn" data-name="Top Coat Gel Effect (11ml)" data-price="6">+</button></div></div>
+        <div class="card gift"><span class="tag">Set · 3x11ml</span><h3>French Manicure Set</h3><p class="desc">Everything you need for a classic French manicure at home.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="French Manicure Set (3x11ml)" data-price="15">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-sun">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Suncare · 50ml</span><h3>Solar Shield SPF50+ Sunscreen</h3><p class="desc">UVA &amp; UVB protection with vitamin B3 and niacinamide, never greasy or chalky.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="Solar Shield SPF50+ Sunscreen (50ml)" data-price="15">+</button></div></div>
+        <div class="card"><span class="tag">Hands · 30ml</span><h3>Hand &amp; Cuticle Cream</h3><p class="desc">Handbag-size intensive moisture treatment for hands and nails.</p><div class="row"><span class="price">$3</span><button class="add-btn" data-name="Hand & Cuticle Cream (30ml)" data-price="3">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-makeup">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Face · 35ml</span><h3>Flawless Skin Perfecting Foundation</h3><p class="desc">3-in-1 foundation + concealer, SPF15, medium buildable coverage, long lasting.</p><div class="row"><span class="price">$20</span><button class="add-btn" data-name="Flawless Skin Perfecting Foundation (35ml)" data-price="20">+</button></div></div>
+        <div class="card"><span class="tag">Face · 5g</span><h3>Mattifying Loose Powder</h3><p class="desc">Sets makeup and controls shine without drying out skin.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="Mattifying Loose Powder (5g)" data-price="15">+</button></div></div>
+        <div class="card"><span class="tag">Brows</span><h3>3-in-1 Eyebrow Pencil</h3><p class="desc">Brow pencil, powder applicator and brow gel mascara in one — black or brown.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="3-in-1 Eyebrow Pencil" data-price="15">+</button></div></div>
+        <div class="card"><span class="tag">Eyes</span><h3>Long-Wear Liquid Eyeliner</h3><p class="desc">Ultra-fine tip for a clean line in one steady sweep, black or brown.</p><div class="row"><span class="price">$9</span><button class="add-btn" data-name="Long-Wear Liquid Eyeliner" data-price="9">+</button></div></div>
+        <div class="card"><span class="tag">Eyes</span><h3>Gel Pencil Eyeliner</h3><p class="desc">Smudgeproof, flake-proof, waterproof — glides on and blends easily.</p><div class="row"><span class="price">$9</span><button class="add-btn" data-name="Gel Pencil Eyeliner" data-price="9">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="range-panel" id="panel-sleep">
+      <div class="product-grid">
+        <div class="card"><span class="tag">Sleep · 100ml</span><h3>Lala Pillow Spray</h3><p class="desc">Lavender, vetiver and camomile blend to ease insomnia and improve sleep quality.</p><div class="row"><span class="price">$8</span><button class="add-btn" data-name="Lala Pillow Spray (100ml)" data-price="8">+</button></div></div>
+        <div class="card"><span class="tag">Sleep · 125ml</span><h3>Natural Skin Repair Oil</h3><p class="desc">Sugarcane squalane oil for intense hydration during your skin's nightly repair.</p><div class="row"><span class="price">$16</span><button class="add-btn" data-name="Natural Skin Repair Oil (125ml)" data-price="16">+</button></div></div>
+        <div class="card"><span class="tag">Sleep · 125ml</span><h3>Linen, Pillow &amp; Pyjama Mist</h3><p class="desc">Sleep-enhancing essential oil blend for a soothing bedtime routine.</p><div class="row"><span class="price">$16</span><button class="add-btn" data-name="Linen, Pillow & Pyjama Mist (125ml)" data-price="16">+</button></div></div>
+        <div class="card"><span class="tag">Sleep · 30ml</span><h3>Good Night Massage Oil</h3><p class="desc">All-natural aromatherapy blend to ease you into deep relaxation.</p><div class="row"><span class="price">$10</span><button class="add-btn" data-name="Good Night Massage Oil (30ml)" data-price="10">+</button></div></div>
+        <div class="card"><span class="tag">Body · 15ml</span><h3>Lavender Tissue Oil</h3><p class="desc">Vitamin E rich, moisturizes and tones, reduces fine lines and scarring.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="Lavender Tissue Oil (15ml)" data-price="15">+</button></div></div>
+        <div class="card"><span class="tag">Body · 15ml</span><h3>Orange Jasmine Tissue Oil</h3><p class="desc">Vitamin E rich, strengthens skin elasticity and revitalizes hair.</p><div class="row"><span class="price">$15</span><button class="add-btn" data-name="Orange Jasmine Tissue Oil (15ml)" data-price="15">+</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Loved across Zimbabwe</span>
+      <h2>What customers <em>say</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi"><div class="stars">★★★★★</div><p>"The Modern Me mist has become my everyday go-to — light but it actually lasts. Ratie sorted my order the same day."</p><div class="who">— Tendai, Harare</div></div>
+      <div class="testi"><div class="stars">★★★★★</div><p>"Bought Rising King in the Signature Range for my husband's birthday. The box alone looked like a proper gift."</p><div class="who">— Chiedza, Bulawayo</div></div>
+      <div class="testi"><div class="stars">★★★★★</div><p>"Ordering on WhatsApp was so easy and the bath salt is now a Sunday ritual in our house."</p><div class="who">— Rutendo, Gweru</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--black-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Good to know</span>
+      <h2>Frequently asked <em>questions</em></h2>
+    </div>
+    <div id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">How do I place an order?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Add whatever you like to your cart, then tap "Checkout via WhatsApp." It opens a chat with your order pre-filled — just hit send and we'll confirm payment and delivery with you directly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What areas do you deliver to?<span class="plus">+</span></button>
+        <div class="faq-a"><p>We deliver across Harare and can arrange delivery to other cities on request. Message us on WhatsApp to confirm delivery to your area and the cost.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are all products authentic?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes — every INUKA product is 100% authentic, sourced directly and sold at fair, transparent prices.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I pay?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Once you send your order on WhatsApp, we'll share current payment options (cash, EcoCash or bank transfer) and confirm your total.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Ready to <em>order?</em></h2>
+    </div>
+    <div class="contact-grid">
+      <form id="orderForm">
+        <div class="field"><label>Your name</label><input type="text" id="fName" placeholder="e.g. Tanaka Moyo" required></div>
+        <div class="field"><label>WhatsApp / phone number</label><input type="tel" id="fPhone" placeholder="e.g. 077 xxx xxxx" required></div>
+        <div class="field">
+          <label>Product interested in</label>
+          <select id="fProduct">
+            <option value="">Select a product...</option>
+            <option>Modern Me Perfume</option>
+            <option>Modern Me Lotion</option>
+            <option>Modern Me Bath Salt</option>
+            <option>Modern Me Hair & Body Mist</option>
+            <option>Exclusive Range Fragrance</option>
+            <option>Signature Range Perfume</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field"><label>Additional details</label><textarea id="fDetails" placeholder="Scent, quantity, delivery area..."></textarea></div>
+        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;">Send message via WhatsApp →</button>
+      </form>
+      <div class="wa-panel">
+        <div class="wa-big">
+          <div class="wa-icon">💬</div>
+          <div><b>+263 77 618 3599</b><span>WhatsApp — tap to chat</span></div>
+        </div>
+        <p style="font-size:0.85rem; opacity:0.65;">Reach us directly on WhatsApp for instant assistance with prices, availability and delivery, or use the form and we'll message you straight away.</p>
+        <a href="https://wa.me/263776183599" target="_blank" class="btn btn-gold" style="justify-content:center;">Chat with Ratie now</a>
+        <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:0.75rem; opacity:0.55; margin-top:8px;">
+          <span>🔒 100% Authentic</span><span>⏰ Fast dispatch</span><span>🏆 Trusted by hundreds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <span class="word" style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-light); letter-spacing:0.1em;">INUKA®</span>
+        <p style="font-size:0.82rem; opacity:0.6; margin-top:8px; max-width:280px;">Always with you. Elevate your scent, define your legacy.</p>
+      </div>
+      <div class="footer-tags">
+        <span>Quality you trust</span>
+        <span>Fragrances you love</span>
+        <span>Made for every moment</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 INUKA by Ratie. All rights reserved.</span>
+      <span>WhatsApp: +263 77 618 3599 · <a href="dashboard.html">Operations dashboard</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp floating button -->
+<a href="https://wa.me/263776183599" target="_blank" class="wa-float" aria-label="Chat on WhatsApp">💬</a>
+
+<!-- Chat widget -->
+<button class="chat-float" id="chatToggle" aria-label="Open assistant chat">💬</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <button class="chat-close" id="chatClose">✕</button>
+    <b>INUKA Assistant</b>
+    <span>Online · usually replies instantly</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-bubble">Hi! 👋 I can help with product info, prices, and orders. What are you looking for?</div>
+  </div>
+  <div class="chat-quick">
+    <button data-q="prices">See prices</button>
+    <button data-q="delivery">Delivery info</button>
+    <button data-q="order">Place an order</button>
+  </div>
+</div>
+
+<!-- Admin gear -->
+<button class="admin-gear" id="adminGear" aria-label="Manage products">⚙</button>
+
+<!-- My Orders modal -->
+<div class="modal-overlay" id="ordersModal">
+  <div class="modal-box">
+    <button class="modal-close" data-close="ordersModal">✕</button>
+    <h3 class="display" style="font-size:1.4rem; margin-bottom:14px;">My Orders</h3>
+    <div id="ordersList" style="font-size:0.85rem; opacity:0.75;">No orders placed from this device yet.</div>
+  </div>
+</div>
+
+<!-- Admin modal -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-box">
+    <button class="modal-close" data-close="adminModal">✕</button>
+    <div id="adminLoginView">
+      <h3 class="display" style="font-size:1.4rem; margin-bottom:14px;">Manage Products</h3>
+      <div class="field"><label>Admin password</label><input type="password" id="adminPass"></div>
+      <button class="btn btn-gold" id="adminLoginBtn" style="width:100%; justify-content:center;">Unlock</button>
+    </div>
+    <div id="adminEditView" style="display:none;">
+      <h3 class="display" style="font-size:1.4rem; margin-bottom:14px;">Edit Prices</h3>
+      <div id="adminProductList"></div>
+      <button class="btn btn-gold" id="adminSaveBtn" style="width:100%; justify-content:center; margin-top:16px;">Save changes</button>
+      <p style="font-size:0.72rem; opacity:0.5; margin-top:10px;">Changes save to this browser only and update prices shown on the storefront.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Cart overlay + drawer -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head"><h3>Your Cart</h3><button class="drawer-close" id="drawerClose">✕</button></div>
+  <div class="drawer-items" id="drawerItems"><p class="empty-cart">Your cart is empty. Add a product to get started.</p></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Total</span><span id="cartTotal">$0</span></div>
+    <button class="checkout-btn" id="checkoutBtn">💬 Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  // Nav burger
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Range tabs
+  document.querySelectorAll('.range-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.range-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+      if (!isOpen) { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  // Countdown timer (launch special, 7 days from first visit)
+  (function(){
+    const KEY = 'inuka_promo_end';
+    let end = localStorage.getItem(KEY);
+    if (!end){ end = Date.now() + 7*24*60*60*1000; localStorage.setItem(KEY, end); }
+    else end = parseInt(end);
+    function tick(){
+      const diff = Math.max(0, end - Date.now());
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor((diff%86400000)/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      document.getElementById('countdown').textContent =
+        `${String(d).padStart(2,'0')}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // Cart logic
+  const WA_NUMBER = '263776183599';
+  let cart = JSON.parse(localStorage.getItem('inuka_cart') || '[]');
+
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const cartCount = document.getElementById('cartCount');
+  const drawerItems = document.getElementById('drawerItems');
+  const cartTotal = document.getElementById('cartTotal');
+
+  function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+
+  document.getElementById('cartOpenBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      const price = parseFloat(btn.dataset.price);
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty += 1;
+      else cart.push({ name, price, qty: 1 });
+      renderCart();
+      openDrawer();
+    });
+  });
+
+  function renderCart(){
+    localStorage.setItem('inuka_cart', JSON.stringify(cart));
+    let totalItems = cart.reduce((s,i)=>s+i.qty,0);
+    let totalPrice = cart.reduce((s,i)=>s+i.qty*i.price,0);
+    cartCount.textContent = totalItems;
+    cartTotal.textContent = '$' + totalPrice.toFixed(0);
+
+    if (cart.length === 0){
+      drawerItems.innerHTML = '<p class="empty-cart">Your cart is empty. Add a product to get started.</p>';
+      return;
+    }
+    drawerItems.innerHTML = cart.map((item, idx) => `
+      <div class="drawer-item">
+        <div>
+          <div class="di-name">${item.name}</div>
+          <div class="di-price">$${item.price} each</div>
+        </div>
+        <div class="qty-ctrl">
+          <button data-action="dec" data-idx="${idx}">−</button>
+          <span>${item.qty}</span>
+          <button data-action="inc" data-idx="${idx}">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    drawerItems.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        const idx = parseInt(b.dataset.idx);
+        if (b.dataset.action === 'inc') cart[idx].qty += 1;
+        else { cart[idx].qty -= 1; if (cart[idx].qty <= 0) cart.splice(idx,1); }
+        renderCart();
+      });
+    });
+  }
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    if (cart.length === 0){ alert('Your cart is empty — add a product first.'); return; }
+    let msg = "Hi Inuka by Ratie! I'd like to order:%0A";
+    cart.forEach(i => { msg += `- ${i.name} x${i.qty} ($${i.price*i.qty})%0A`; });
+    const total = cart.reduce((s,i)=>s+i.qty*i.price,0);
+    msg += `%0ATotal: $${total.toFixed(0)}`;
+    saveOrder(cart, total);
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+    cart = [];
+    renderCart();
+  });
+
+  function saveOrder(items, total){
+    const orders = JSON.parse(localStorage.getItem('inuka_orders') || '[]');
+    orders.unshift({
+      id: 'INK-' + Date.now().toString().slice(-6),
+      date: new Date().toLocaleDateString(),
+      items: items.map(i => ({ name: i.name, qty: i.qty })),
+      total,
+      status: 'Order sent — awaiting confirmation'
+    });
+    localStorage.setItem('inuka_orders', JSON.stringify(orders));
+  }
+
+  renderCart();
+
+  // My Orders modal
+  function openModal(id){ document.getElementById(id).classList.add('open'); }
+  function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
+
+  document.getElementById('myOrdersLink').addEventListener('click', () => {
+    const orders = JSON.parse(localStorage.getItem('inuka_orders') || '[]');
+    const list = document.getElementById('ordersList');
+    if (orders.length === 0){
+      list.innerHTML = 'No orders placed from this device yet.';
+    } else {
+      list.innerHTML = orders.map(o => `
+        <div style="border-bottom:1px solid var(--line); padding:12px 0;">
+          <b style="color:var(--gold-light);">${o.id}</b> — ${o.date}<br>
+          ${o.items.map(i => `${i.name} x${i.qty}`).join(', ')}<br>
+          Total: $${o.total.toFixed(0)} · <span style="color:var(--teal);">${o.status}</span>
+        </div>
+      `).join('');
+    }
+    openModal('ordersModal');
+  });
+
+  // Chat widget
+  const chatToggle = document.getElementById('chatToggle');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatBody = document.getElementById('chatBody');
+  chatToggle.addEventListener('click', () => chatPanel.classList.toggle('open'));
+  document.getElementById('chatClose').addEventListener('click', () => chatPanel.classList.remove('open'));
+
+  const chatReplies = {
+    prices: "Modern Me runs $4–$15, Exclusive Range fragrances are $20 (care items $6–$10), and Signature Range perfumes are $35 for 50ml.",
+    delivery: "We deliver across Harare and can arrange delivery to other cities on request — message us on WhatsApp to confirm your area and cost.",
+    order: "Easiest way: add items to your cart above and tap 'Checkout via WhatsApp,' or chat with Ratie directly at +263 77 618 3599."
+  };
+  document.querySelectorAll('.chat-quick button').forEach(b => {
+    b.addEventListener('click', () => {
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble';
+      userBubble.style.alignSelf = 'flex-end';
+      userBubble.style.background = 'rgba(31,174,148,0.12)';
+      userBubble.textContent = b.textContent;
+      chatBody.appendChild(userBubble);
+
+      const replyBubble = document.createElement('div');
+      replyBubble.className = 'chat-bubble';
+      replyBubble.textContent = chatReplies[b.dataset.q];
+      chatBody.appendChild(replyBubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
+  });
+
+  // Admin panel (password: Ratie@2026)
+  document.getElementById('adminGear').addEventListener('click', () => openModal('adminModal'));
+  document.getElementById('adminLoginBtn').addEventListener('click', () => {
+    if (document.getElementById('adminPass').value === 'Ratie@2026'){
+      document.getElementById('adminLoginView').style.display = 'none';
+      document.getElementById('adminEditView').style.display = 'block';
+      buildAdminList();
+    } else {
+      alert('Incorrect password.');
+    }
+  });
+
+  function buildAdminList(){
+    const list = document.getElementById('adminProductList');
+    const buttons = document.querySelectorAll('.add-btn');
+    list.innerHTML = '';
+    buttons.forEach((btn, idx) => {
+      const row = document.createElement('div');
+      row.className = 'admin-row';
+      row.innerHTML = `<input class="p-name" value="${btn.dataset.name}" data-idx="${idx}">
+        <span>$</span><input class="p-price" type="number" value="${btn.dataset.price}" data-idx="${idx}">`;
+      list.appendChild(row);
+    });
+  }
+
+  document.getElementById('adminSaveBtn').addEventListener('click', () => {
+    const names = document.querySelectorAll('.p-name');
+    const prices = document.querySelectorAll('.p-price');
+    const buttons = document.querySelectorAll('.add-btn');
+    buttons.forEach((btn, idx) => {
+      btn.dataset.name = names[idx].value;
+      btn.dataset.price = prices[idx].value;
+      const priceEl = btn.closest('.row').querySelector('.price');
+      priceEl.textContent = '$' + prices[idx].value;
+    });
+    alert('Prices updated on this device.');
+    closeModal('adminModal');
+  });
+
+  // Order form
+  document.getElementById('orderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fName').value;
+    const phone = document.getElementById('fPhone').value;
+    const product = document.getElementById('fProduct').value || 'Not specified';
+    const details = document.getElementById('fDetails').value || 'None';
+    const msg = `Hi Inuka by Ratie! My name is ${name} (${phone}).%0AI'm interested in: ${product}%0ADetails: ${details}`;
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+  });
+</script>
+
+</body>
+</html>

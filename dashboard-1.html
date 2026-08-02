@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations Dashboard — INUKA by Ratie</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a; --black-2:#141210; --gold:#c9a24b; --gold-light:#e8cf8f;
+    --cream:#f4efe4; --teal:#1fae94; --magenta:#d43d7c; --line: rgba(201,162,75,0.25);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--black); color:var(--cream); font-family:'Manrope',sans-serif; min-height:100vh;}
+  h1,h2,.display{font-family:'Cormorant Garamond',serif; font-weight:600;}
+  a{color:var(--gold-light);}
+  .wrap{max-width:1000px; margin:0 auto; padding:40px 24px;}
+
+  /* Login gate */
+  #loginGate{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .login-box{background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:36px; width:380px; max-width:100%;}
+  .login-box h1{font-size:1.7rem; margin-bottom:8px;}
+  .login-box p{font-size:0.85rem; opacity:0.6; margin-bottom:22px;}
+  input{width:100%; background:var(--black); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--cream); font-size:0.92rem; margin-bottom:16px;}
+  button{background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:#141210; border:none; padding:12px 22px; border-radius:30px; font-weight:700; cursor:pointer; font-size:0.85rem;}
+  button.ghost{background:none; border:1px solid var(--line); color:var(--cream);}
+
+  /* Dashboard */
+  #dash{display:none;}
+  header.dash-head{border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; padding:20px 24px;}
+  header.dash-head .word{font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-light); letter-spacing:0.08em;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:34px;}
+  @media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat-card{background:var(--black-2); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .stat-card b{display:block; font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--gold-light);}
+  .stat-card span{font-size:0.72rem; opacity:0.6; letter-spacing:0.05em; text-transform:uppercase;}
+  .panel{background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:26px; margin-bottom:24px;}
+  .panel h2{font-size:1.4rem; margin-bottom:16px;}
+  table{width:100%; border-collapse:collapse; font-size:0.85rem;}
+  th, td{text-align:left; padding:10px 8px; border-bottom:1px solid var(--line);}
+  th{opacity:0.55; font-weight:600; text-transform:uppercase; font-size:0.7rem; letter-spacing:0.05em;}
+  .empty{opacity:0.5; font-size:0.85rem; padding:20px 0;}
+  .quick-links{display:flex; gap:12px; flex-wrap:wrap;}
+  .quick-links a{border:1px solid var(--line); border-radius:10px; padding:12px 16px; font-size:0.85rem; display:block;}
+  .quick-links a:hover{border-color:var(--gold);}
+  .status-select{background:var(--black); border:1px solid var(--line); color:var(--cream); border-radius:6px; padding:5px 8px; font-size:0.78rem;}
+  .danger{color:var(--magenta); border-color:var(--magenta) !important;}
+</style>
+</head>
+<body>
+
+<div id="loginGate">
+  <div class="login-box">
+    <h1>Operations Dashboard</h1>
+    <p>INUKA by Ratie — restricted access. Enter the operations password to continue.</p>
+    <input type="password" id="dashPass" placeholder="Password">
+    <button id="dashLoginBtn" style="width:100%; justify-content:center;">Unlock dashboard</button>
+  </div>
+</div>
+
+<div id="dash">
+  <header class="dash-head">
+    <span class="word">INUKA® Dashboard</span>
+    <div style="display:flex; gap:10px;">
+      <a href="index.html"><button class="ghost">← Storefront</button></a>
+      <button class="ghost" id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat-card"><b id="statOrders">0</b><span>Total orders</span></div>
+      <div class="stat-card"><b id="statRevenue">$0</b><span>Revenue tracked</span></div>
+      <div class="stat-card"><b id="statItems">0</b><span>Items ordered</span></div>
+      <div class="stat-card"><b id="statAvg">$0</b><span>Avg order value</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Recent orders</h2>
+      <table id="ordersTable">
+        <thead><tr><th>Order ID</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+      <p class="empty" id="ordersEmpty" style="display:none;">No orders logged on this device yet. Orders are recorded when customers checkout via WhatsApp on the storefront.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Quick links</h2>
+      <div class="quick-links">
+        <a href="index.html#modern-me">Edit Modern Me pricing (storefront admin)</a>
+        <a href="tracker.html">Order Tracker page</a>
+        <a href="https://wa.me/263776183599" target="_blank">Open WhatsApp Business</a>
+        <a href="mailto:talithamuronda@gmail.com">Email Talitha Muronda</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <button class="ghost danger" id="clearOrdersBtn">Clear all logged orders on this device</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const DASH_PASSWORD = 'Ratie@2026';
+
+  document.getElementById('dashLoginBtn').addEventListener('click', () => {
+    if (document.getElementById('dashPass').value === DASH_PASSWORD){
+      document.getElementById('loginGate').style.display = 'none';
+      document.getElementById('dash').style.display = 'block';
+      sessionStorage.setItem('inuka_dash_auth', '1');
+      loadDashboard();
+    } else {
+      alert('Incorrect password.');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('inuka_dash_auth');
+    location.reload();
+  });
+
+  if (sessionStorage.getItem('inuka_dash_auth') === '1'){
+    document.getElementById('loginGate').style.display = 'none';
+    document.getElementById('dash').style.display = 'block';
+    loadDashboard();
+  }
+
+  function loadDashboard(){
+    const orders = JSON.parse(localStorage.getItem('inuka_orders') || '[]');
+    document.getElementById('statOrders').textContent = orders.length;
+    const revenue = orders.reduce((s,o) => s + o.total, 0);
+    document.getElementById('statRevenue').textContent = '$' + revenue.toFixed(0);
+    const items = orders.reduce((s,o) => s + o.items.reduce((a,i)=>a+i.qty,0), 0);
+    document.getElementById('statItems').textContent = items;
+    document.getElementById('statAvg').textContent = '$' + (orders.length ? (revenue/orders.length).toFixed(0) : 0);
+
+    const body = document.getElementById('ordersBody');
+    const empty = document.getElementById('ordersEmpty');
+    if (orders.length === 0){
+      body.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    body.innerHTML = orders.map((o, idx) => `
+      <tr>
+        <td>${o.id}</td>
+        <td>${o.date}</td>
+        <td>${o.items.map(i=>`${i.name} x${i.qty}`).join(', ')}</td>
+        <td>$${o.total.toFixed(0)}</td>
+        <td>
+          <select class="status-select" data-idx="${idx}">
+            <option ${o.status.includes('awaiting')?'selected':''}>Order sent — awaiting confirmation</option>
+            <option ${o.status.includes('Confirmed')?'selected':''}>Confirmed</option>
+            <option ${o.status.includes('Packed')?'selected':''}>Packed</option>
+            <option ${o.status.includes('Out')?'selected':''}>Out for delivery</option>
+            <option ${o.status.includes('Delivered')?'selected':''}>Delivered</option>
+          </select>
+        </td>
+      </tr>
+    `).join('');
+
+    body.querySelectorAll('.status-select').forEach(sel => {
+      sel.addEventListener('change', () => {
+        const idx = parseInt(sel.dataset.idx);
+        orders[idx].status = sel.value;
+        localStorage.setItem('inuka_orders', JSON.stringify(orders));
+      });
+    });
+  }
+
+  document.getElementById('clearOrdersBtn').addEventListener('click', () => {
+    if (confirm('This will permanently clear all logged orders on this device. Continue?')){
+      localStorage.removeItem('inuka_orders');
+      loadDashboard();
+    }
+  });
+</script>
+
+</body>
+</html>

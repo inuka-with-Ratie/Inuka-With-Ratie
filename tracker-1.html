@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Tracker — INUKA by Ratie</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a; --black-2:#141210; --gold:#c9a24b; --gold-light:#e8cf8f;
+    --cream:#f4efe4; --teal:#1fae94; --magenta:#d43d7c; --line: rgba(201,162,75,0.25);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--black); color:var(--cream); font-family:'Manrope',sans-serif; min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:24px;}
+  h1,.display{font-family:'Cormorant Garamond',serif; font-weight:600;}
+  a{color:var(--gold-light);}
+  .box{background:var(--black-2); border:1px solid var(--line); border-radius:16px; padding:36px; width:460px; max-width:100%;}
+  .back{font-size:0.8rem; opacity:0.6; display:inline-block; margin-bottom:18px;}
+  h1{font-size:1.8rem; margin-bottom:8px;}
+  p.sub{font-size:0.85rem; opacity:0.6; margin-bottom:24px;}
+  label{display:block; font-size:0.75rem; letter-spacing:0.06em; text-transform:uppercase; opacity:0.6; margin-bottom:8px;}
+  input{width:100%; background:var(--black); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--cream); font-size:0.92rem; margin-bottom:16px;}
+  button{width:100%; background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:#141210; border:none; padding:13px; border-radius:30px; font-weight:700; cursor:pointer;}
+  .order-card{border:1px solid var(--line); border-radius:12px; padding:16px; margin-top:16px;}
+  .order-card b{color:var(--gold-light);}
+  .status-pill{display:inline-block; background:rgba(31,174,148,0.15); color:var(--teal); font-size:0.72rem; padding:4px 10px; border-radius:20px; margin-top:8px;}
+  .empty{opacity:0.5; font-size:0.88rem; text-align:center; margin-top:20px;}
+</style>
+</head>
+<body>
+  <div class="box">
+    <a class="back" href="index.html">← Back to shop</a>
+    <h1>Track your order</h1>
+    <p class="sub">Orders placed through this browser's WhatsApp checkout are listed below. For live status, message us directly on WhatsApp.</p>
+    <label>Search by order ID</label>
+    <input type="text" id="searchId" placeholder="e.g. INK-482913">
+    <button id="searchBtn">Track order</button>
+    <div id="results"></div>
+  </div>
+
+<script>
+  function loadOrders(){ return JSON.parse(localStorage.getItem('inuka_orders') || '[]'); }
+
+  function renderList(orders){
+    const results = document.getElementById('results');
+    if (orders.length === 0){
+      results.innerHTML = '<p class="empty">No matching orders found on this device.</p>';
+      return;
+    }
+    results.innerHTML = orders.map(o => `
+      <div class="order-card">
+        <b>${o.id}</b> — ${o.date}<br>
+        <span style="font-size:0.85rem; opacity:0.75;">${o.items.map(i=>`${i.name} x${i.qty}`).join(', ')}</span><br>
+        <span style="font-size:0.85rem;">Total: $${o.total.toFixed(0)}</span>
+        <div class="status-pill">${o.status}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    const q = document.getElementById('searchId').value.trim().toLowerCase();
+    const all = loadOrders();
+    const filtered = q ? all.filter(o => o.id.toLowerCase().includes(q)) : all;
+    renderList(filtered);
+  });
+
+  renderList(loadOrders());
+</script>
+</body>
+</html>
